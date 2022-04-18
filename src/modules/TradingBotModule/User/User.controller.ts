@@ -15,14 +15,19 @@ export class TBUserController extends BaseController {
    * @param app - Express Instance
    */
   public register(app: Application): void {
-    app.use("/api/user", this.router);
+    app.use("/", this.router);
   }
   private initialRoutes() {
+    this.router.get("/", this.home);
     this.router.post("/create-account", this.createAccount);
     this.router.post("/create-session", this.createSession);
     this.router.get("/get-profile", AuthHelper.guard, this.getProfile);
   }
-
+  public async home(req: Request, res: Response): Promise<any> {
+    res.status(201).json({
+      message: "Home page",
+    });
+  }
   //user sign up
   public async createAccount(req: Request, res: Response): Promise<any> {
     try {
