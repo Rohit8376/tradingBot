@@ -4,6 +4,7 @@ import cors from "cors";
 
 import helmet from "helmet";
 import { registerRoutes } from "./routes/v1/routes";
+const db = require("./db/mongoose");
 
 const PORT = 8000;
 

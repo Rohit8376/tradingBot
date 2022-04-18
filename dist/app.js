@@ -7,7 +7,8 @@ require("dotenv").config({ path: "./.env" });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
-const routes_1 = require("./routes/routes");
+const routes_1 = require("./routes/v1/routes");
+const db = require("./config/mongoose");
 const PORT = 8000;
 class App {
     constructor() {

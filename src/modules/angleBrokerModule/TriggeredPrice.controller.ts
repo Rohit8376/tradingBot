@@ -1,6 +1,6 @@
 import axios from "axios";
 import { Application, Request, Response } from "express";
-import { BaseController } from "./BaseController";
+import { BaseController } from "../BaseController";
 
 export class TriggeredPriceController extends BaseController {
   constructor() {
@@ -9,12 +9,16 @@ export class TriggeredPriceController extends BaseController {
   }
 
   public register(app: Application): void {
-    app.use("/api/gtt", this.router);
+    app.use("/api/angle/gtt", this.router);
   }
   private initialRoutes() {
-    this.router.post("/genrate-rule", this.genrateRule);
+    this.router.post("/genrate-rule", this.createRule);
+    this.router.put("/modify-rule", this.modifyRule);
+    this.router.post("/cancel-rule", this.cancelRule);
+    this.router.post("/get-all", this.getAllRule);
+    this.router.post("/get-rule-by-id", this.cancelRule);
   }
-  public genrateRule(req: Request, res: Response): any {
+  public createRule(req: Request, res: Response): any {
     var data = JSON.stringify({
       tradingsymbol: "SBIN-EQ",
       symboltoken: "3045",
@@ -100,7 +104,7 @@ export class TriggeredPriceController extends BaseController {
 
     var config: object = {
       method: "post",
-      url: "https://apiconnect.angelbroking.com/rest/secure/angelbroking/gtt/v1/cancelRule\n",
+      url: "https://apiconnect.angelbroking.com/rest/secure/angelbroking/gtt/v1/cancelRule",
       headers: {
         Authorization:
           "Bearer eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlI0Nzc3NjkiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwiaWF0IjoxNjQ5NDA5NDgwLCJleHAiOjE3MzU4MDk0ODB9.cinKbDwV0x3cF2ayX74snwUxqtCKQwcN8sezJ1Hrrn8l-XcKRawPGao38xTX0NnIudUyel0enrMktcYp6sPKyg",
@@ -124,7 +128,7 @@ export class TriggeredPriceController extends BaseController {
         console.log(error);
       });
   }
-  public getAll(req: Request, res: Response): any {
+  public getAllRule(req: Request, res: Response): any {
     var data = JSON.stringify({
       status: ["NEW", "CANCELLED", "ACTIVE", "SENTTOEXCHANGE", "FORALL"],
       page: 1,
