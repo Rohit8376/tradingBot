@@ -23,6 +23,7 @@ export class TBUserController extends BaseController {
     this.router.post("/create-session", this.createSession);
     this.router.get("/get-profile", AuthHelper.guard, this.getProfile);
   }
+
   public async home(req: Request, res: Response): Promise<any> {
     res.status(201).json({
       message: "Home page",
